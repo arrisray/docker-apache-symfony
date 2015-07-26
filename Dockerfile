@@ -8,6 +8,7 @@ RUN    apt-get update \
         php5-intl \
         php5-curl \
         php-pear \
+        vim \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure PHP (CLI and Apache)
