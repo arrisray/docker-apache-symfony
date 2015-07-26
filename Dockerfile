@@ -28,5 +28,8 @@ RUN pear upgrade PEAR
 RUN pear channel-discover pear.symfony-project.com
 RUN pear install symfony/symfony
 
+# Setup shared volume for application code
+Add . /var/www/main
+
 EXPOSE 80
 CMD ["/start.sh"]
