@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER Lars Janssen <lars@fazy.net>
+MAINTAINER Arris Ray <arris.ray@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN    apt-get update \
@@ -7,6 +7,7 @@ RUN    apt-get update \
         libapache2-mod-php5 \
         php5-intl \
         php5-curl \
+        php-pear \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure PHP (CLI and Apache)
@@ -21,6 +22,11 @@ ADD vhost.conf /etc/apache2/sites-available/000-default.conf
 # Add main start script for when image launches
 ADD start.sh /start.sh
 RUN chmod 0755 /start.sh
+
+# Install Symfony
+RUN pear upgrade PEAR
+RUN pear channel-discover pear.symfony-project.com
+RUN pear install symfony/symfony
 
 EXPOSE 80
 CMD ["/start.sh"]
