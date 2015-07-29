@@ -18,6 +18,7 @@ RUN sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/cli/php.ini \
 # Configure Apache vhost
 RUN rm -rf /var/www/*
 RUN a2enmod rewrite
+RUN a2enmod php5
 ADD vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # Add main start script for when image launches
