@@ -16,6 +16,7 @@ RUN    apt-get update \
 # Configure PHP (CLI and Apache)
 RUN sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/cli/php.ini \
     && sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/apache2/php.ini
+RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini
 
 # Configure Apache vhost
 RUN rm -rf /var/www/*
