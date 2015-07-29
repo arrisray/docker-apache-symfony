@@ -6,6 +6,7 @@ RUN    apt-get update \
     && apt-get -yq install \
         apache2 \
         libapache2-mod-php5 \
+        php5 \
         php5-intl \
         php5-curl \
         php5-mysql \
@@ -17,6 +18,10 @@ RUN    apt-get update \
 RUN sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/cli/php.ini \
     && sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/apache2/php.ini
 RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini
+
+# Configure Apache
+sed -i "N;$!/Global configuration\n#/a \
+        ServerName localhost" /etc/apache2/apache2.conf
 
 # Configure Apache vhost
 RUN rm -rf /var/www/*
