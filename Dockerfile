@@ -23,7 +23,7 @@ RUN chown -R www-data:www-data /usr/share/php/data
 RUN rm -rf /var/www/*
 RUN a2enmod rewrite
 RUN a2enmod php5
-ADD vhost.conf /etc/apache2/other/askeet.conf
+ADD vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # Add main start script for when image launches
 ADD start.sh /start.sh
@@ -37,8 +37,6 @@ RUN pear install symfony/symfony-1.0.0
 # Setup shared volume for application code
 # See: https://github.com/boot2docker/boot2docker/issues/581#issuecomment-114804894 
 ADD . /var/www/askeet
-RUN usermod -u 1000 www-data 
-RUN usermod -G staff www-data
 
 EXPOSE 80
 CMD ["/start.sh"]

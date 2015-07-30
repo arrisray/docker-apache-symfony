@@ -1,7 +1,7 @@
 #!/bin/bash
 
-chown -R www-data: /var/www/main
-chmod -R a+rX /var/www/main
+chown -R www-data: /var/www/askeet
+chmod -R a+rX /var/www/askeet
 
 source /etc/apache2/envvars
 exec apache2 -D FOREGROUND
