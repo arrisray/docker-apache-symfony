@@ -1,0 +1,38 @@
+#!/bin/bash
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+WEBDIR="/var/www/askeet"
+
+# Get ID of last run container
+function dl() {
+    docker ps -lq
+}
+
+# Start container based on specified image as a detached process
+function dlstart() {
+    local DOCKER_CMD=$1
+    if [ -z $DOCKER_CMD ]; then
+        DOCKER_CMD="arris/apache-symfony"
+    fi
+
+    docker run \
+        -d\
+        -p '8000:80'\
+        -v $DIR:$WEBDIR\
+        $DOCKER_CMD
+}
+
+# Stop the last run container
+function dlstop() {
+    docker stop $(dl)
+    docker rm $(dl)
+}
+
+function dlshell() {
+    docker exec -it $(dl) bash
+}
+
+function symfony() {
+    docker exec $(dl) bash -c "cd $WEBDIR && symfony $*"
+}
+
