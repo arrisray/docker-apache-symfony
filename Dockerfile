@@ -1,4 +1,4 @@
-FROM jedahan:debian-sarge
+FROM jedahan/debian-sarge
 MAINTAINER Arris Ray <arris.ray@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
