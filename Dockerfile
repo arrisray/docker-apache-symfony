@@ -7,7 +7,7 @@ RUN    apt-get update \
     && apt-get -yq install \
         apache2 \
         libapache2-mod-php5 \
-        php5=5.1.1-1 \
+        php5 \
         php5-intl \
         php5-curl \
         php5-mysql \
