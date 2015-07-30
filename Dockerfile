@@ -36,7 +36,7 @@ RUN chmod 0755 /start.sh
 # Install Symfony
 RUN pear upgrade PEAR
 RUN pear channel-discover pear.symfony-project.com
-RUN pear install symfony/symfony
+RUN pear install symfony/symfony-1.4.20
 
 # Setup shared volume for application code
 # See: https://github.com/boot2docker/boot2docker/issues/581#issuecomment-114804894 
