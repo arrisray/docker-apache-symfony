@@ -35,7 +35,7 @@ ADD start.sh /start.sh
 RUN chmod 0755 /start.sh
 
 # Install Symfony
-RUN pear upgrade -f PEAR-1.4.5
+RUN pear upgrade -f PEAR
 RUN pear channel-discover pear.symfony-project.com
 RUN pear install symfony/symfony-1.0.0
 
