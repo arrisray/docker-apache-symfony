@@ -38,7 +38,10 @@ RUN pear channel-discover pear.symfony-project.com
 RUN pear install symfony/symfony
 
 # Setup shared volume for application code
+# See: https://github.com/boot2docker/boot2docker/issues/581#issuecomment-114804894 
 ADD . /var/www/main
+RUN usermod -u 1000 www-data 
+RUN usermod -G staff www-data
 
 EXPOSE 80
 CMD ["/start.sh"]
