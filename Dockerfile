@@ -1,13 +1,11 @@
-FROM wyaeld/sarge
+FROM pblaszczyk/debian-lenny
 MAINTAINER Arris Ray <arris.ray@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN    apt-get update \
     && apt-get -yq install \
-        apache2 \
         libapache2-mod-php5 \
-        php5 \
         php5-intl \
         php5-curl \
         php5-mysql \
