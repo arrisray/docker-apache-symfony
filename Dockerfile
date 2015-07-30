@@ -23,7 +23,7 @@ RUN chown -R www-data:www-data /usr/share/php/data
 RUN rm -rf /var/www/*
 RUN a2enmod rewrite
 RUN a2enmod php5
-ADD vhost.conf /etc/apache2/sites-available/000-default.conf
+ADD vhost.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Add main start script for when image launches
 ADD start.sh /start.sh
