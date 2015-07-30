@@ -6,7 +6,7 @@ RUN    apt-get update \
     && apt-get -yq install \
         apache2 \
         libapache2-mod-php5 \
-        php5 \
+        php5=5.1.1-1 \
         php5-intl \
         php5-curl \
         php5-mysql \
@@ -34,7 +34,7 @@ ADD start.sh /start.sh
 RUN chmod 0755 /start.sh
 
 # Install Symfony
-RUN pear upgrade PEAR
+RUN pear upgrade -f PEAR-1.4.5
 RUN pear channel-discover pear.symfony-project.com
 RUN pear install symfony/symfony-1.0.0
 
