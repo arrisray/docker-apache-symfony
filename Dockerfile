@@ -19,14 +19,11 @@ RUN sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/cli/php.ini \
 RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini
 RUN chown -R www-data:www-data /usr/share/php/data
 
-# Configure Apache
-RUN sed -i "N;$!/Global configuration\n#/a ServerName localhost" /etc/apache2/apache2.conf
-
 # Configure Apache vhost
 RUN rm -rf /var/www/*
 RUN a2enmod rewrite
 RUN a2enmod php5
-ADD vhost.conf /etc/apache2/sites-available/000-default.conf
+ADD vhost.conf /etc/apache2/other/askeet.conf
 
 # Add main start script for when image launches
 ADD start.sh /start.sh
