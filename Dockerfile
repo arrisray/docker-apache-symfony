@@ -21,6 +21,7 @@ RUN chown -R www-data:www-data /usr/share/php/data
 
 # Configure Apache vhost
 RUN rm -rf /var/www/*
+RUN rm -rf /etc/apache2/sites-enabled/*
 RUN a2enmod rewrite
 RUN a2enmod php5
 ADD vhost.conf /etc/apache2/sites-enabled/000-default.conf
