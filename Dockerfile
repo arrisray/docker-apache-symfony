@@ -1,4 +1,4 @@
-FROM pblaszczyk/debian-lenny
+FROM debian:squeeze
 MAINTAINER Arris Ray <arris.ray@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
