@@ -1,7 +1,8 @@
-FROM debian:jessie
+FROM jedahan:debian-sarge
 MAINTAINER Arris Ray <arris.ray@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
+
 RUN    apt-get update \
     && apt-get -yq install \
         apache2 \
