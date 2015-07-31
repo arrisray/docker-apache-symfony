@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN    apt-get update \
     && apt-get -yq install \
+        supervisor \
         mysql-server \
         libapache2-mod-php5 \
         php5-intl \
@@ -28,8 +29,12 @@ RUN a2enmod php5
 ADD vhost.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Add main start script for when image launches
-ADD start.sh /start.sh
-RUN chmod 0755 /start.sh
+ADD start_apache2.sh /opt/start_apache2.sh
+ADD start_mysqld.sh /opt/start_mysqld.sh
+ADD start.sh /opt/start.sh
+RUN chmod 0755 /opt/*.sh
+ADD supervisord_apache2.conf /etc/supervisor/conf.d/supervisord_apache2.conf
+ADD supervisord_mysqld.conf /etc/supervisor/conf.d/supervisord_mysqld.conf
 
 # Install Symfony
 RUN pear upgrade -f PEAR
@@ -46,9 +51,13 @@ RUN usermod -G staff www-data
 
 # Setup MySQL
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+RUN rm -rf /var/lib/mysql/*
+ADD create_mysql_admin_user.sh /opt/create_mysql_admin_user.sh
+RUN chmod 0755 /opt/*.sh
+VOLUME ["/etc/mysql", "/var/lib/mysql"]
 
 EXPOSE 80
 EXPOSE 3306
 
-CMD ["/start.sh"]
+CMD ["/opt/start.sh"]
 

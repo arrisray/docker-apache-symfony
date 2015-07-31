@@ -3,23 +3,18 @@
 chown -R www-data: /var/www/askeet
 chmod -R a+rX /var/www/askeet
 
-source /etc/apache2/envvars
-apache2 &
+sed -ri -e "s/^upload_max_filesize.*/upload_max_filesize = ${PHP_UPLOAD_MAX_FILESIZE}/" \
+    -e "s/^post_max_size.*/post_max_size = ${PHP_POST_MAX_SIZE}/" /etc/php5/apache2/php.ini
 
-# MySQL
-if [ ! -f /var/lib/mysql/ibdata1 ]; then
-    mysql_install_db
-
-    /usr/bin/mysqld_safe &
-    sleep 10s
-
-    echo "GRANT ALL ON *.* TO admin@'%' IDENTIFIED BY 'changeme' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql
-
-    killall mysqld
-    sleep 10s
+VOLUME_HOME="/var/lib/mysql"
+if [[ ! -d $VOLUME_HOME/mysql ]]; then
+    echo "=> An empty or uninitialized MySQL volume is detected in $VOLUME_HOME"
+    echo "=> Installing MySQL ..."
+    mysql_install_db > /dev/null 2>&1
+    echo "=> Done!"  
+    /create_mysql_admin_user.sh
+else
+    echo "=> Using an existing volume of MySQL"
 fi
 
-/usr/bin/mysqld_safe &
-
-exit 0
-
+exec supervisord -n
