@@ -58,6 +58,9 @@ RUN chown -R mysql:mysql /etc/mysql
 RUN chown -R mysql:mysql /var/lib/mysql
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
 
+# Setup Vim
+ADD .vimrc ~/.vimrc
+
 EXPOSE 80
 EXPOSE 3306
 
