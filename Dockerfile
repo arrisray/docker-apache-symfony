@@ -6,12 +6,12 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN    apt-get update \
     && apt-get -yq install \
         libapache2-mod-php5 \
-        mysql-admin \
         php5-intl \
         php5-curl \
         php5-mysql \
         php-pear \
         vim \
+        mysql-admin \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure PHP (CLI and Apache)
