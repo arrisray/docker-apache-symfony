@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN    apt-get update \
     && apt-get -yq install \
         libapache2-mod-php5 \
+        mysql-admin \
         php5-intl \
         php5-curl \
         php5-mysql \
