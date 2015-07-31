@@ -1,7 +1,8 @@
 #!/bin/bash
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-WEBDIR="/var/www/askeet"
+WEB_DIR="/var/www/askeet"
+DATA_CONTAINER_ID="data"
 
 # Get ID of last run container
 function dl() {
@@ -16,16 +17,18 @@ function dlstart() {
     fi
 
     docker run \
-        -d\
-        -p '8000:80'\
-        -v $DIR:$WEBDIR\
+        -d \
+        -p '8000:80' \
+        -p '3306:3306' \
+        -v $DIR:$WEB_DIR \
+        --volumes-from data \
         $DOCKER_CMD
 }
 
 # Stop the last run container
 function dlstop() {
     docker stop $(dl)
-    docker rm $(dl)
+    docker rm -v $(dl)
 }
 
 function dlshell() {
@@ -33,6 +36,25 @@ function dlshell() {
 }
 
 function symfony() {
-    docker exec $(dl) bash -c "cd $WEBDIR && symfony $*"
+    docker exec $(dl) bash -c "cd $WEB_DIR && symfony $*"
+}
+
+function datstart() {
+    local DOCKER_CMD=$1
+    if [ -z $DOCKER_CMD ]; then
+        DOCKER_CMD="arris/apache-symfony"
+    fi
+
+    docker run \
+        -v /etc/mysql \
+        -v /var/lib/mysql \
+        --name $DATA_CONTAINER_ID \
+        arris/apache-symfony \
+        echo "Run Data Container"
+}
+
+function datstop() {
+    docker stop $DATA_CONTAINER_ID
+    docker rm -v $DATA_CONTAINER_ID
 }
 
