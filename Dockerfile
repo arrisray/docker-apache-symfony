@@ -44,8 +44,5 @@ ADD . /var/www/askeet
 RUN usermod -u 1000 www-data 
 RUN usermod -G staff www-data
 
-# Start MySQL
-RUN /etc/init.d/mysql start
-
 EXPOSE 80
 CMD ["/start.sh"]
