@@ -21,3 +21,5 @@ fi
 
 /usr/bin/mysqld_safe &
 
+exit 0
+
