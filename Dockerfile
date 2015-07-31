@@ -5,8 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN    apt-get update \
     && apt-get -yq install \
-        mysql \
-        mysql-admin \
+        mysql-server \
         libapache2-mod-php5 \
         php5-intl \
         php5-curl \
@@ -44,6 +43,9 @@ RUN sed -i "/zend.ze1_compatibility_mode: off/d" /usr/share/php/data/symfony/con
 ADD . /var/www/askeet
 RUN usermod -u 1000 www-data 
 RUN usermod -G staff www-data
+
+# Start MySQL
+RUN /etc/init.d/mysql start
 
 EXPOSE 80
 CMD ["/start.sh"]
