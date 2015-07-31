@@ -44,5 +44,12 @@ ADD . /var/www/askeet
 RUN usermod -u 1000 www-data 
 RUN usermod -G staff www-data
 
+# Setup MySQL
+RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+
 EXPOSE 80
-CMD ["/start.sh"]
+EXPOSE 3306
+
+ADD ./start.sh /opt/start.sh
+CMD ["/bin/bash", "/opt/start.sh"]
+
