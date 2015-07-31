@@ -54,7 +54,9 @@ RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysq
 RUN rm -rf /var/lib/mysql/*
 ADD create_mysql_admin_user.sh /opt/create_mysql_admin_user.sh
 RUN chmod 0755 /opt/*.sh
-# VOLUME ["/etc/mysql", "/var/lib/mysql"]
+RUN chown -R mysql:mysql /etc/mysql
+RUN chown -R mysql:mysql /var/lib/mysql
+VOLUME ["/etc/mysql", "/var/lib/mysql"]
 
 EXPOSE 80
 EXPOSE 3306
