@@ -4,7 +4,7 @@ chown -R www-data: /var/www/askeet
 chmod -R a+rX /var/www/askeet
 
 source /etc/apache2/envvars
-apache2 -D FOREGROUND &
+apache2 &
 
 # MySQL
 if [ ! -f /var/lib/mysql/ibdata1 ]; then
