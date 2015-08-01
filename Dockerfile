@@ -42,6 +42,8 @@ RUN pear channel-discover pear.symfony-project.com
 RUN pear install symfony/symfony-1.0.0
 RUN sed -i "/check:/d" /usr/share/php/data/symfony/config/php.yml
 RUN sed -i "/zend.ze1_compatibility_mode: off/d" /usr/share/php/data/symfony/config/php.yml
+RUN sed -i "s/const TEXT = 17/const TEXT = 30/" /usr/share/php/symfony/vendor/creole/CreoleTypes.php
+
 
 # Setup shared volume for application code
 # See: https://github.com/boot2docker/boot2docker/issues/581#issuecomment-114804894 
