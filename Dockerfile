@@ -6,7 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 # http://dino.ciuffetti.info/2013/03/how-to-install-php-52-on-squeeze/
 ADD lenny /etc/apt/preferences.d/lenny
 RUN echo "deb http://archive.debian.org/debian lenny main contrib non-free" >> /etc/apt/sources.list
-RUN apt-get update \
+RUN apt-get remove --purge php5\* \
+    && apt-get update \
     && apt-get clean \
     && apt-get -yq install \
         supervisor \
