@@ -14,7 +14,6 @@ RUN apt-get update \
         supervisor \
         mysql-server \
         libapache2-mod-php5 \
-        php5-intl \
         php5-curl \
         php5-mysql \
         php5-xsl \
