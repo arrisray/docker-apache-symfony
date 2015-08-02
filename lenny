@@ -4,7 +4,7 @@ Pin: release n=lenny*
 Pin-Priority: 100
 
 Explanation: choose Lenny as installation source for those packages
-Package: libapache2-mod-php5 php5-common php5-curl php5-gd php5-mcrypt php5-mysql php5-cli php5-mhash php5-xsl php5-imap php5-xmlrpc php5-sqlite
+Package: libapache2-mod-php5 php5-common php5-curl php5-gd php5-mcrypt php5-mysql php5-cli php5-mhash php5-xsl php5-imap php5-xmlrpc php5-sqlite php-pear php5-intl
 Pin: release n=lenny*
 Pin-Priority: 1001
 
