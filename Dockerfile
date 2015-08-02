@@ -1,4 +1,4 @@
-FROM debian:squeeze
+FROM pblaszczyk/debian-etch
 MAINTAINER Arris Ray <arris.ray@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
