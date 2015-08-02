@@ -1,4 +1,4 @@
-FROM pblaszczyk/debian-etch
+FROM pblaszczyk/debian-lenny
 MAINTAINER Arris Ray <arris.ray@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
