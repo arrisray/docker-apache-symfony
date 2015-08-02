@@ -11,6 +11,7 @@ RUN    apt-get update \
         php5-intl \
         php5-curl \
         php5-mysql \
+        php5-xsl \
         php-pear \
         vim \
     && rm -rf /var/lib/apt/lists/*
@@ -39,11 +40,12 @@ ADD supervisord_mysqld.conf /etc/supervisor/conf.d/supervisord_mysqld.conf
 # Install Symfony
 RUN pear upgrade -f PEAR
 RUN pear channel-discover pear.symfony-project.com
-RUN pear install symfony/symfony-1.0.0
+RUN pear install symfony/symfony-1.0.22
+# HACK!
 RUN sed -i "/check:/d" /usr/share/php/data/symfony/config/php.yml
 RUN sed -i "/zend.ze1_compatibility_mode: off/d" /usr/share/php/data/symfony/config/php.yml
+# http://www.alexfilatov.com/2009/12/09/symfony-unable-to-return-affix-for-unknown-creoletype
 RUN sed -i "s/const TEXT = 17/const TEXT = 30/" /usr/share/php/symfony/vendor/creole/CreoleTypes.php
-
 
 # Setup shared volume for application code
 # See: https://github.com/boot2docker/boot2docker/issues/581#issuecomment-114804894 
