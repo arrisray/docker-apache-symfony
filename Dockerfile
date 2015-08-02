@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # http://dino.ciuffetti.info/2013/03/how-to-install-php-52-on-squeeze/
 RUN echo "deb http://archive.debian.org/debian lenny main contrib non-free" >> /etc/apt/sources.list
-RUN apt-get remove -purge php5/* \
+RUN apt-get remove --purge php5/* \
     apt-get update \
     apt-get clean \
     && apt-get -yq install \
