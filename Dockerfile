@@ -25,6 +25,7 @@ RUN apt-get update \
 RUN sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/cli/php.ini \
     && sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/apache2/php.ini
 RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini
+RUN sed -i "s/magic_quotes_gpc = On/magic_quotes_gpc = false/" /etc/php5/apache2/php.ini
 RUN chown -R www-data:www-data /usr/share/php/data
 
 # Configure Apache vhost
