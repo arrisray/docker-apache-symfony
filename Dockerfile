@@ -46,7 +46,7 @@ ADD supervisord_mysqld.conf /etc/supervisor/conf.d/supervisord_mysqld.conf
 # Install Symfony
 RUN pear upgrade -f PEAR
 RUN pear channel-discover pear.symfony-project.com
-RUN pear install symfony/symfony-1.0.22
+RUN pear install symfony/symfony-1.0.0
 # HACK!
 RUN sed -i "/check:/d" /usr/share/php/data/symfony/config/php.yml
 RUN sed -i "/zend.ze1_compatibility_mode: off/d" /usr/share/php/data/symfony/config/php.yml
