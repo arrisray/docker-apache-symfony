@@ -58,3 +58,27 @@ function datstop() {
     docker rm -v $DATA_CONTAINER_ID
 }
 
+function goaskeet() {
+    # Day 1
+    symfony init-project askeet
+    symfony init-app frontend
+
+    # Day 2
+    rm config/schema.yml
+    cp .schema.xml config/schema.xml
+    echo "propel.mysql.tableType = InnoDB" >> config/propel.ini
+    symfony propel-build-model 
+    docker exec $(dl) bash -c "mysqladmin -uroot --force drop askeet"
+    docker exec $(dl) bash -c "mysqladmin -uroot create askeet"
+    cp .databases.yml config/databases.yml    
+    symfony propel-build-sql
+    docker exec $(dl) bash -c "mysql -uroot askeet < /var/www/askeet/data/sql/schema.sql"
+    symfony propel-generate-crud frontend user User
+    symfony propel-generate-crud frontend question Question
+    symfony cc frontend config
+
+    # Day 3
+    cp .layout.css web/css/layout.css
+    cp .main.css web/css/main.css
+    # sed -i "s/stylesheets:    [main]/stylesheets:    [main, layout]/" apps/frontend/config/view.yml 
+}

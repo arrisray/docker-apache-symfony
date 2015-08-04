@@ -22,10 +22,12 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure PHP (CLI and Apache)
+# RUN sed -i "s/magic_quotes_gpc = On/magic_quotes_gpc = false/" /etc/php5/apache2/php.ini
+# RUN sed -i "s/post_max_size =/post_max_size = 16MB/" /etc/php5/apache2/php.ini
+# RUN sed -i "s/upload_max_filesize =/upload_max_filesize = 8MB/" /etc/php5/apache2/php.ini
 RUN sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/cli/php.ini \
     && sed -i "s/;date.timezone =/date.timezone = UTC/" /etc/php5/apache2/php.ini
 RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini
-# RUN sed -i "s/magic_quotes_gpc = On/magic_quotes_gpc = false/" /etc/php5/apache2/php.ini
 RUN chown -R www-data:www-data /usr/share/php/data
 
 # Configure Apache vhost
